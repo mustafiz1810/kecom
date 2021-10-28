@@ -13,7 +13,8 @@ class _NewPageState extends State<NewPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(""),
+        title: Text("New page"),
+        backgroundColor: Colors.blueAccent,
       ),
     );
   }
