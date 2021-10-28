@@ -1,14 +1,8 @@
 import 'package:ecommerce_app/config/palette.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:flutter_icons/flutter_icons.dart';
-import 'package:community_material_icon/community_material_icon.dart';
 
 class LoginSignupScreen extends StatefulWidget {
-  const LoginSignupScreen({
-    Key key,
-  }) : super(key: key);
-
   @override
   _LoginSignupScreenState createState() => _LoginSignupScreenState();
 }
@@ -17,22 +11,6 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
   bool isSignupScreen = true;
   bool isRememberMe = false;
 
-  var formkey = GlobalKey<FormState>();
-  var name = TextEditingController();
-  var phone = TextEditingController();
-  var address = TextEditingController();
-
-  void handleSubmit() {
-    if (formkey.currentState.validate()) {
-      formkey.currentState.save();
-    }
-  }
-
-  // void handleReset() {
-  //   name.clear();
-  //   phone.clear();
-  //   address.clear();
-  // }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,75 +19,79 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
         children: [
           Positioned(
             top: 0,
-            left: 0,
             right: 0,
+            left: 0,
             child: Container(
               height: 300,
               decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("image/dollar-544956_1280.jpg"),
-                  fit: BoxFit.fill,
-                ),
-              ),
+                  image: DecorationImage(
+                      image: AssetImage("image/IMG_20211019_135919__01.jpg"),
+                      fit: BoxFit.fill)),
               child: Container(
-                padding: const EdgeInsets.only(top: 90, left: 20),
-                color: Color(0xFF3b5999).withOpacity(.60),
+                padding: EdgeInsets.only(top: 90, left: 20),
+                color: Color(0xFF3b5999).withOpacity(.85),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     RichText(
                       text: TextSpan(
-                        text: "Welcome To",
-                        style: TextStyle(
-                          letterSpacing: 2,
-                          color: Colors.amber,
-                          fontSize: 20,
-                        ),
-                        children: [
-                          TextSpan(
-                            text: " Ecommerce",
-                            style: TextStyle(
-                              color: Color(0xFFF59E0B),
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
-                            ),
+                          text: "Welcome to",
+                          style: TextStyle(
+                            fontSize: 25,
+                            letterSpacing: 2,
+                            color: Colors.yellow[700],
                           ),
-                        ],
-                      ),
+                          children: [
+                            TextSpan(
+                              text: isSignupScreen ? " KODEEO," : " Profile",
+                              style: TextStyle(
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            )
+                          ]),
                     ),
                     SizedBox(
                       height: 5,
                     ),
                     Text(
-                      "Please login/signup to continue",
+                      isSignupScreen
+                          ? "Signup to Continue"
+                          : "Signin to Continue",
                       style: TextStyle(
                         letterSpacing: 1,
                         color: Colors.white,
                       ),
-                    ),
+                    )
                   ],
                 ),
               ),
             ),
           ),
-          Positioned(
-            top: 180,
-            child: Container(
-              height: 350,
+          // Trick to add the shadow for the submit button
+          buildBottomHalfContainer(true),
+          //Main Contianer for Login and Signup
+          AnimatedPositioned(
+            duration: Duration(milliseconds: 700),
+            curve: Curves.elasticInOut,
+            top: isSignupScreen ? 200 : 230,
+            child: AnimatedContainer(
+              duration: Duration(milliseconds: 700),
+              curve: Curves.elasticInOut,
+              height: isSignupScreen ? 330 : 250,
               padding: EdgeInsets.all(20),
               width: MediaQuery.of(context).size.width - 40,
               margin: EdgeInsets.symmetric(horizontal: 20),
               decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(15),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(.3),
-                    blurRadius: 15,
-                    spreadRadius: 5,
-                  ),
-                ],
-              ),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(15),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.black.withOpacity(0.3),
+                        blurRadius: 15,
+                        spreadRadius: 5),
+                  ]),
               child: SingleChildScrollView(
                 child: Column(
                   children: [
@@ -125,21 +107,20 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                           child: Column(
                             children: [
                               Text(
-                                "Login",
+                                "LOGIN",
                                 style: TextStyle(
-                                  color: !isSignupScreen
-                                      ? Palette.activeColor
-                                      : Palette.textColor1,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: !isSignupScreen
+                                        ? Palette.activeColor
+                                        : Palette.textColor1),
                               ),
                               if (!isSignupScreen)
                                 Container(
                                   margin: EdgeInsets.only(top: 3),
                                   height: 2,
-                                  width: 60,
-                                  color: Colors.amber,
+                                  width: 55,
+                                  color: Colors.orange,
                                 )
                             ],
                           ),
@@ -153,212 +134,197 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                           child: Column(
                             children: [
                               Text(
-                                "Signup",
+                                "SIGNUP",
                                 style: TextStyle(
-                                  color: isSignupScreen
-                                      ? Palette.activeColor
-                                      : Palette.textColor1,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: isSignupScreen
+                                        ? Palette.activeColor
+                                        : Palette.textColor1),
                               ),
                               if (isSignupScreen)
                                 Container(
                                   margin: EdgeInsets.only(top: 3),
                                   height: 2,
-                                  width: 60,
-                                  color: Colors.amber,
+                                  width: 55,
+                                  color: Colors.orange,
                                 )
                             ],
                           ),
-                        ),
+                        )
                       ],
                     ),
-                    Container(
-                      margin: EdgeInsets.only(top: 20),
-                      child: Column(
-                        children: [
-                          Form(
-                            key: formkey,
-                            child: Column(
-                              children: <Widget>[
-                                TextFormField(
-                                  controller: name,
-                                  decoration: InputDecoration(
-                                      hintText: "enter name",
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(40)),
-                                      ),
-                                      prefixIcon:
-                                          Icon(Icons.account_box_outlined)),
-                                  // ignore: missing_return
-                                  validator: (value) {
-                                    if (value.length == 0) {
-                                      return ("name is required");
-                                    }
-                                    // ignore: unused_label
-                                    onSaved:
-                                    // ignore: unnecessary_statements
-                                    (value) {};
-                                  },
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                TextFormField(
-                                  controller: phone,
-                                  keyboardType: TextInputType.number,
-                                  maxLength: 11,
-                                  decoration: InputDecoration(
-                                      hintText: "enter number",
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(40)),
-                                      ),
-                                      prefixIcon: Icon(Icons.phone)),
-                                  // ignore: missing_return
-                                  validator: (value) {
-                                    if (value.length < 11) {
-                                      return ("phone number shouldn't be more then 11 digit ");
-                                    }
-                                    // ignore: unused_label
-                                    onSaved:
-                                    // ignore: unnecessary_statements
-                                    (value) {};
-                                  },
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                TextFormField(
-                                  controller: address,
-                                  decoration: InputDecoration(
-                                      hintText: "address",
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(40)),
-                                      ),
-                                      prefixIcon: Icon(
-                                          Icons.add_location_alt_outlined)),
-                                  // ignore: missing_return
-                                  validator: (value) {
-                                    if (value.length == 0) {
-                                      return ("address is required");
-                                    }
-                                    // ignore: unused_label
-                                    onSaved:
-                                    // ignore: unnecessary_statements
-                                    (value) {};
-                                  },
-                                ),
-                                // SizedBox(
-                                //   height: 200,
-                                // ),
-                                // GestureDetector(
-                                //   onTap: () {
-                                //     setState(() {
-                                //       handleSubmit();
-                                //     });
-                                //   },
-                                // ),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
+                    if (isSignupScreen) buildSignupSection(),
+                    if (!isSignupScreen) buildSigninSection()
                   ],
                 ),
               ),
             ),
           ),
-          Positioned(
-              top: 480,
-              left: 0,
-              right: 0,
-              child: Center(
-                child: Container(
-                  height: 90,
-                  width: 90,
-                  padding: EdgeInsets.all(15),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      gradient: LinearGradient(
-                        colors: [
-                          Colors.orange[200],
-                          Colors.red[400],
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              )),
-          Positioned(
-              top: MediaQuery.of(context).size.height - 100,
-              right: 0,
-              left: 0,
-              child: Column(
-                children: [
-                  Text(
-                    "Or Sign in with:",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      TextButton(
-                        onPressed: () {},
-                        style: TextButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(35)),
-                          primary: Colors.white,
-                          backgroundColor: Palette.facebookColor,
-                        ),
-                        child: Row(
-                          children: [
-                            Icon(MaterialCommunityIcons.facebook),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text("Facebook"),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      TextButton(
-                        onPressed: () {},
-                        style: TextButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(35)),
-                          primary: Colors.white,
-                          backgroundColor: Palette.googleColor,
-                        ),
-                        child: Row(
-                          children: [
-                            Icon(MaterialCommunityIcons.google),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text("Google"),
-                          ],
-                        ),
-                      )
-                    ],
-                  )
-                ],
-              ))
+          // Trick to add the submit button
+          buildBottomHalfContainer(false),
+          // Bottom buttons
         ],
+      ),
+    );
+  }
+
+  Container buildSigninSection() {
+    return Container(
+      margin: EdgeInsets.only(top: 20),
+      child: Column(
+        children: [
+          buildTextField(Icons.mail_outline, "info@demouri.com", false, true),
+          buildTextField(
+              MaterialCommunityIcons.lock_outline, "**********", true, false),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Checkbox(
+                    value: isRememberMe,
+                    activeColor: Palette.textColor2,
+                    onChanged: (value) {
+                      setState(() {
+                        isRememberMe = !isRememberMe;
+                      });
+                    },
+                  ),
+                  Text("Remember me",
+                      style: TextStyle(fontSize: 12, color: Palette.textColor1))
+                ],
+              ),
+              TextButton(
+                onPressed: () {},
+                child: Text("Forgot Password?",
+                    style: TextStyle(fontSize: 12, color: Palette.textColor1)),
+              )
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  Container buildSignupSection() {
+    return Container(
+      margin: EdgeInsets.only(top: 20),
+      child: Column(
+        children: [
+          buildTextField(MaterialCommunityIcons.account_outline, "User Name",
+              false, false),
+          buildTextField(
+              MaterialCommunityIcons.email_outline, "email", false, true),
+          buildTextField(
+              MaterialCommunityIcons.lock_outline, "password", true, false),
+          buildTextField(MaterialCommunityIcons.lock_outline,
+              "re enter password", true, false),
+        ],
+      ),
+    );
+  }
+
+  TextButton buildTextButton(
+      IconData icon, String title, Color backgroundColor) {
+    return TextButton(
+      onPressed: () {},
+      style: TextButton.styleFrom(
+          side: BorderSide(width: 1, color: Colors.grey),
+          minimumSize: Size(145, 40),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          primary: Colors.white,
+          backgroundColor: backgroundColor),
+      child: Row(
+        children: [
+          Icon(
+            icon,
+          ),
+          SizedBox(
+            width: 5,
+          ),
+          Text(
+            title,
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget buildBottomHalfContainer(bool showShadow) {
+    return AnimatedPositioned(
+      duration: Duration(milliseconds: 700),
+      curve: Curves.elasticInOut,
+      top: isSignupScreen ? 480 : 430,
+      right: 0,
+      left: 0,
+      child: Center(
+        child: Container(
+          height: 90,
+          width: 90,
+          padding: EdgeInsets.all(15),
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(50),
+              boxShadow: [
+                if (showShadow)
+                  BoxShadow(
+                    color: Colors.black.withOpacity(.3),
+                    spreadRadius: 1.5,
+                    blurRadius: 10,
+                  )
+              ]),
+          child: !showShadow
+              ? Container(
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          colors: [Colors.blueAccent[200], Colors.blue[400]],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight),
+                      borderRadius: BorderRadius.circular(30),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black.withOpacity(.3),
+                            spreadRadius: 1,
+                            blurRadius: 2,
+                            offset: Offset(0, 1))
+                      ]),
+                  child: Icon(
+                    Icons.arrow_forward,
+                    color: Colors.white,
+                  ),
+                )
+              : Center(),
+        ),
+      ),
+    );
+  }
+
+  Widget buildTextField(
+      IconData icon, String hintText, bool isPassword, bool isEmail) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8.0),
+      child: TextField(
+        obscureText: isPassword,
+        keyboardType: isEmail ? TextInputType.emailAddress : TextInputType.text,
+        decoration: InputDecoration(
+          prefixIcon: Icon(
+            icon,
+            color: Palette.iconColor,
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Palette.textColor1),
+            borderRadius: BorderRadius.all(Radius.circular(35.0)),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Palette.textColor1),
+            borderRadius: BorderRadius.all(Radius.circular(35.0)),
+          ),
+          contentPadding: EdgeInsets.all(10),
+          hintText: hintText,
+          hintStyle: TextStyle(fontSize: 14, color: Palette.textColor1),
+        ),
       ),
     );
   }

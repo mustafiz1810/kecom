@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/screen/login_signup.dart';
+import 'package:ecommerce_app/screen/new.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,8 +13,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: "E-Commarce-App",
-      home: LoginSignupScreen(),
+      title: "Kodeeo-App",
+      home: NewPage(),
     );
   }
 }
